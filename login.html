@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - MASKAX-WADAAG DIGITAL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, hsl(220, 20%, 97%) 0%, hsl(220, 70%, 96%) 100%);
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 400px;
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .logo-large {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-main);
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="glass-card auth-card fade-in">
+        <div class="logo-large">MASKAX-WADAAG
+            DIGITAL</div>
+        <p class="text-muted" style="margin-bottom: 2rem;">Sign in to manage your shop</p>
+
+        <form id="loginForm" onsubmit="handleLogin(event)">
+            <div style="margin-bottom: 1.2rem; text-align: left;">
+                <label class="text-muted" style="font-size: 0.9rem;">Username</label>
+                <input type="text" id="username" placeholder="Enter your username" required>
+            </div>
+
+            <div style="margin-bottom: 1.5rem; text-align: left;">
+                <label class="text-muted" style="font-size: 0.9rem;">Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
+        </form>
+
+
+
+        <div id="error-msg" class="text-danger" style="margin-top: 1rem; font-size: 0.9rem; display: none;"></div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script>
+        // Check if already logged in
+        if (localStorage.getItem(auth.key)) {
+            window.location.href = 'index.html';
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            const errorEl = document.getElementById('error-msg');
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerText;
+
+            btn.innerText = 'Signing in...';
+            btn.disabled = true;
+
+            const result = await auth.login(user, pass);
+
+            if (result.success) {
+                window.location.href = 'index.html';
+            } else {
+                btn.innerText = originalText;
+                btn.disabled = false;
+                errorEl.textContent = result.message;
+                errorEl.style.display = 'block';
+                // Shake animation
+                document.querySelector('.auth-card').animate([
+                    { transform: 'translateX(0)' },
+                    { transform: 'translateX(-10px)' },
+                    { transform: 'translateX(10px)' },
+                    { transform: 'translateX(0)' }
+                ], { duration: 300 });
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,646 @@
+/* 
+ * Shop Management System - Premium Design System
+ * Modern, Glassmorphism, Dark/Light Mode Support
+ */
+
+:root {
+    /* Color Palette - Premium Space Blue / Gold Accents */
+    --primary-hue: 220;
+    --primary-main: hsl(var(--primary-hue), 70%, 50%);
+    --primary-dark: hsl(var(--primary-hue), 70%, 35%);
+    --primary-light: hsl(var(--primary-hue), 70%, 96%);
+
+    --accent-gold: hsl(45, 90%, 60%);
+    --accent-danger: hsl(350, 80%, 60%);
+    --accent-success: hsl(150, 60%, 45%);
+    --accent-warning: hsl(30, 90%, 60%);
+
+    /* Neutral Colors - Light Mode Default */
+    --bg-body: hsl(220, 20%, 97%);
+    --bg-surface: #ffffff;
+    --bg-glass: rgba(255, 255, 255, 0.7);
+    --text-main: hsl(220, 20%, 15%);
+    --text-muted: hsl(220, 10%, 45%);
+    --border-color: rgba(0, 0, 0, 0.08);
+
+    /* Shadows & Effects */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+    /* Soft drop shadow */
+    --glass-blur: blur(12px);
+    --border-radius: 16px;
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark Mode Overrides - Premium Midnight Blue */
+[data-theme="dark"] {
+    --bg-body: hsl(220, 25%, 8%);
+    --bg-surface: hsl(220, 22%, 12%);
+    --bg-glass: rgba(15, 20, 35, 0.7);
+    --text-main: hsl(220, 20%, 92%);
+    --text-muted: hsl(220, 10%, 65%);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --primary-light: hsla(var(--primary-hue), 70%, 50%, 0.15);
+    --shadow-md: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    line-height: 1.6;
+    transition: background-color var(--transition), color var(--transition);
+    height: 100vh;
+    overflow: hidden;
+    /* For app-like feel */
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4 {
+    font-weight: 600;
+    margin-bottom: 0.5em;
+    letter-spacing: -0.02em;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.95rem;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-main), var(--primary-dark));
+    color: white;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--text-muted);
+}
+
+.btn-ghost:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text-main);
+}
+
+/* Inputs */
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    background: var(--bg-surface);
+    color: var(--text-main);
+    font-family: inherit;
+    transition: var(--transition);
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary-main);
+    box-shadow: 0 0 0 4px var(--primary-light);
+}
+
+/* Glass Card - Updated for proper Theme Support */
+.glass-card {
+    background: var(--bg-glass);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+    padding: 1.5rem;
+    transition: var(--transition);
+    color: inherit;
+}
+
+[data-theme="light"] .glass-card {
+    background: #ffffff;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+    color: var(--text-main);
+}
+
+/* Layout */
+.app-container {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    background: var(--bg-surface);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--primary-main);
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    line-height: 1.2;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.nav-item {
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-weight: 500;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background: var(--primary-light);
+    color: var(--primary-main);
+}
+
+[data-theme="dark"] .nav-item.active {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Sidebar Profile (Mobile Only) */
+.sidebar-user-panel {
+    display: none;
+}
+
+/* Main Content */
+.main-content {
+    padding: 2rem;
+    overflow-y: auto;
+    background: linear-gradient(135deg, var(--bg-body) 0%, rgba(var(--primary-hue), 50%, 90%, 0.1) 100%);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.menu-toggle {
+    display: none;
+    /* Hidden on desktop */
+}
+
+/* User Menu */
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary-main);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+/* Toast Notification */
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+    background: var(--bg-surface);
+    color: var(--text-main);
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    border-left: 4px solid var(--primary-main);
+    min-width: 300px;
+    transform: translateX(120%);
+    transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.toast.show {
+    transform: translateX(0);
+}
+
+.toast.success {
+    border-left-color: var(--accent-success);
+}
+
+.toast.error {
+    border-left-color: var(--accent-danger);
+}
+
+/* Utilities */
+.text-success {
+    color: var(--accent-success);
+}
+
+.text-danger {
+    color: var(--accent-danger);
+}
+
+.text-bold {
+    font-weight: 600;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* POS Payment Options */
+.payment-option input:checked+div {
+    border-color: var(--primary-main) !important;
+    background: var(--primary-light) !important;
+    color: var(--primary-main) !important;
+    box-shadow: 0 0 0 2px var(--primary-main);
+}
+
+.payment-option div:hover {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme="dark"] .payment-option div:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* --- THE ISOLATION PRINT ENGINE (The Absolute Fix for Blank Pages) --- */
+@media print {
+
+    /* 1. Global Reset */
+    html,
+    body {
+        height: auto !important;
+        overflow: visible !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #fff !important;
+        color: #000 !important;
+        width: 100% !important;
+    }
+
+    /* 2. Nuclear Hide Logic */
+    /* Hide everything on the body IF isolation printing is active */
+    body.is-printing-now>* {
+        display: none !important;
+    }
+
+    /* 3. Targeted Visibility: Only allow the isolated print area to show */
+    body.is-printing-now #system-print-area {
+        display: block !important;
+        position: relative !important;
+        width: 100% !important;
+        padding: 1cm !important;
+        visibility: visible !important;
+    }
+
+    /* 4. Force Content Styles for Isolation Area */
+    #system-print-area * {
+        visibility: visible !important;
+        color: #000 !important;
+        background: transparent !important;
+        opacity: 1 !important;
+    }
+
+    /* 5. Professional Report Formatting */
+    table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        margin-top: 1cm !important;
+    }
+
+    th {
+        background: #f2f2f2 !important;
+        border-bottom: 2px solid #000 !important;
+        padding: 10px !important;
+        text-align: left !important;
+    }
+
+    td {
+        border-bottom: 1px solid #eee !important;
+        padding: 10px !important;
+    }
+
+    /* 6. Thermal Receipt Optimization inside Isolation Area */
+    body.is-printing-now #system-print-area h2 {
+        text-align: center !important;
+        font-size: 14pt !important;
+    }
+
+    @page {
+        margin: 1cm;
+        size: auto;
+    }
+}
+
+/* Footer Styling */
+.app-footer {
+    margin-top: 3rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-muted);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+}
+
+.footer-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-links span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Chart Container Helpers */
+.chart-container-compact {
+    height: 220px !important;
+}
+
+.dashboard-grid,
+.charts-container {
+    margin-bottom: 2rem;
+}
+
+/* Grid Utilities */
+.dashboard-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.dashboard-charts-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+}
+
+.pos-main-grid {
+    display: grid;
+    grid-template-columns: 1.8fr 1.2fr;
+    gap: 1.5rem;
+    min-height: calc(100vh - 250px);
+}
+
+@media (max-width: 1024px) {
+    .dashboard-charts-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .pos-main-grid {
+        grid-template-columns: 1fr !important;
+        height: auto !important;
+        overflow-y: visible !important;
+    }
+}
+
+/* Page Header Actions - Global */
+.page-header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    gap: 1rem;
+    /* No flex-wrap defaults to nowrap */
+}
+
+/* --- Responsive Logic (Clean Standard) --- */
+
+/* Sidebar Overlay */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+}
+
+.sidebar-overlay.active {
+    display: block;
+}
+
+/* 
+   PRIMARY BREAKPOINT: 991px 
+   (Using 991px instead of 768px to ensure Tablets also get the overlay menu, 
+   preventing squashed layouts on iPad/Tablets) 
+*/
+@media (max-width: 991px) {
+
+    /* 1. Layout Reset to Block */
+    .app-container {
+        display: block;
+        /* Removes grid behavior */
+        height: auto;
+        min-height: 100vh;
+        overflow-x: hidden;
+        /* Prevents horizontal scroll */
+    }
+
+    /* 2. Main Content Full Width */
+    .main-content {
+        width: 100%;
+        margin: 0 !important;
+        padding: 1rem;
+        /* Revert to standard padding */
+        max-width: none !important;
+        height: auto;
+    }
+
+    /* 3. Sidebar Off-Canvas (Fixed) */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -280px;
+        /* Hidden by default */
+        height: 100vh;
+        width: 260px;
+        z-index: 1000;
+        transition: left 0.3s ease;
+        box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+        border-right: none;
+    }
+
+    .sidebar.open {
+        left: 0;
+        /* Slide in */
+    }
+
+    /* 4. Menu Toggle Button Visibility */
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* 5. Header Cleanup */
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+    }
+
+    .header>div:first-child {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    /* Hide User Actions (Icons/Avatar) on Mobile */
+    .user-actions {
+        display: none;
+    }
+
+    /* Hide subtitle to prevent layout shifts */
+    .page-title p {
+        display: none;
+    }
+
+    .page-title h2 {
+        font-size: 1.25rem;
+        margin: 0;
+    }
+
+    /* Page Header Actions - Force Button to Right */
+    .page-header-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+    }
+
+    .page-header-actions>*:last-child {
+        margin-left: auto;
+        /* Push button to the right */
+    }
+
+    /* 6. Dashboard Grid Responsive */
+    .dashboard-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+    }
+
+    /* Force 1-column for complex grids on mobile */
+    .dashboard-charts-grid,
+    .pos-main-grid {
+        display: grid;
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+        height: auto !important;
+    }
+
+    /* POS Products inner scroll */
+    #pos-products-grid {
+        max-height: 50vh;
+        overflow-y: auto;
+    }
+
+    /* 7. Show Sidebar Profile on Mobile */
+    .sidebar-user-panel {
+        display: block;
+    }
+}
+
+/* Extra Small Devices (Phones < 480px) */
+@media (max-width: 480px) {
+    .dashboard-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .user-profile .info {
+        display: none;
+    }
+
+    /* Make button smaller to fit on line */
+    .page-header-actions button {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
+}

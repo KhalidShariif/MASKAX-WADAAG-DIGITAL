@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MASKAX-WADAAG
+        DIGITAL | Premium Management System</title>
+
+    <!-- Fonts: Outfit (Modern Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons: RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- Icons: FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css?v=9">
+</head>
+
+<body>
+    <div class="app-container" id="app-shell" style="display: none;">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="nav-logo-icon" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z" />
+                    <path
+                        d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z" />
+                </svg> MASKAX-WADAAG DIGITAL
+            </div>
+
+            <ul class="nav-links">
+                <li class="nav-item active" id="nav-dashboard" onclick="app.router.navigate('dashboard')">
+                    <i class="ri-dashboard-line"></i> Dashboard
+                </li>
+                <li class="nav-item" id="nav-products" onclick="app.router.navigate('products')">
+                    <i class="ri-box-3-line"></i> Products
+                </li>
+                <li class="nav-item" id="nav-pos" onclick="app.router.navigate('pos')">
+                    <i class="ri-shopping-cart-2-line"></i> POS / Sales
+                </li>
+                <li class="nav-item" id="nav-employees" onclick="app.router.navigate('employees')">
+                    <i class="ri-user-star-line"></i> Employees
+                </li>
+                <li class="nav-item" id="nav-customers" onclick="app.router.navigate('customers')">
+                    <i class="ri-team-line"></i> Customers
+                </li>
+                <li class="nav-item" id="nav-analysis" onclick="app.router.navigate('analysis')">
+                    <i class="ri-line-chart-line"></i> Analysis
+                </li>
+            </ul>
+
+            <!-- Mobile Profile in Sidebar -->
+            <div class="sidebar-user-panel"
+                style="margin-top: auto; margin-bottom: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+                <div class="user-profile" style="margin-bottom: 1rem;">
+                    <div class="avatar" id="user-avatar-sidebar" style="width: 32px; height: 32px; font-size: 0.8rem;">
+                        AD</div>
+                    <div class="info">
+                        <h4 id="user-name-sidebar" style="font-size: 0.9rem; margin: 0;">Admin</h4>
+                        <p id="user-role-sidebar" style="font-size: 0.75rem; opacity: 0.7; margin: 0;">Shop Owner</p>
+                    </div>
+                </div>
+                <li class="nav-item" onclick="ui.toggleTheme()">
+                    <i class="ri-contrast-line"></i> Switch Theme
+                </li>
+            </div>
+
+            <div>
+                <li class="nav-item" onclick="auth.logout()">
+                    <i class="ri-logout-box-r-line"></i> Logout
+                </li>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <button class="btn btn-ghost menu-toggle" id="menu-toggle" onclick="ui.toggleSidebar()">
+                        <i class="ri-menu-line"></i>
+                    </button>
+                    <div class="page-title">
+                        <h2 id="page-header-title">Dashboard</h2>
+                        <p class="text-muted" id="current-date">Overview of your shop</p>
+                    </div>
+                </div>
+
+                <div class="user-actions">
+                    <button class="btn btn-ghost" onclick="ui.toggleTheme()" id="theme-toggle"
+                        style="margin-right: 1rem; padding: 0.5rem; border-radius: 50%; width: 40px; height: 40px;">
+                        <i class="ri-moon-line"></i>
+                    </button>
+                    <div class="user-profile">
+                        <div class="avatar" id="user-avatar">AD</div>
+                        <div class="info">
+                            <h4 id="user-name">Admin</h4>
+                            <p id="user-role" style="font-size: 0.8rem; opacity: 0.7;">Shop Owner</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dynamic Content Area -->
+            <div id="content-area" class="fade-in container">
+                <!-- Views will be injected here -->
+            </div>
+
+            <!-- Global Footer -->
+            <footer class="app-footer no-print">
+                <div class="footer-content">
+                    <p>&copy; 2025 MASKAX-WADAAG DIGITAL. All rights reserved.</p>
+                    <div class="footer-links">
+                        <span><i class="ri-shield-check-line"></i> Secure System</span>
+                        <span><i class="ri-customer-service-2-line"></i> Support: maskaxwadaagdigital@gmail.com</span>
+                    </div>
+                </div>
+            </footer>
+        </main>
+
+        <!-- Mobile Sidebar Overlay (Moved here to avoid breaking desktop grid) -->
+        <div class="sidebar-overlay" onclick="ui.toggleSidebar()"></div>
+    </div>
+
+    <!-- Login/Auth Container (handled by redirect usually, but keeping root clean) -->
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js CDN -->
+    <script src="js/store.js?v=11"></script> <!-- Data Layer -->
+    <script src="js/auth.js?v=11"></script> <!-- Auth Layer -->
+    <script src="js/ui.js?v=11"></script> <!-- UI Components -->
+    <script src="js/app.js?v=11"></script> <!-- Main App Logic -->
+</body>
+
+</html>
